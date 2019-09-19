@@ -36,6 +36,7 @@ except Exception as exc:
     print(exc)
     sys.exit()
 
+print("got here")
 try:
     if len(Settings.login_username) != 0:
         login(browser, Settings.login_username, Settings.login_password)

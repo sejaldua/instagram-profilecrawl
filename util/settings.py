@@ -10,11 +10,11 @@ class Settings:
     profile_commentors_location = os.path.join(BASE_DIR, 'profiles')
     profile_file_with_timestamp = True
     profile_commentors_file_with_timestamp = True
-    limit_amount = 10
+    limit_amount = 100
     scrape_posts_infos = True
     scrape_posts_likers = False
     scrape_follower = False
-    output_comments = False
+    output_comments = True
     sleep_time_between_post_scroll = 1.5
     sleep_time_between_comment_loading = 1.5
     mentions = True
@@ -28,8 +28,8 @@ class Settings:
     # Set a logger cache outside object to avoid re-instantiation issues
     loggers = {}
 
-    login_username = ''
-    login_password = ''
+    login_username = 'sejaldua99'
+    login_password = input("What is your Instagram password? ")
 
     #chromedriver
     chromedriver_min_version = 2.36
