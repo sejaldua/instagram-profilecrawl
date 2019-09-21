@@ -53,13 +53,20 @@ def extract_post_info(browser, postlink):
         if location_div:
             location_url = location_div[0].get_attribute('href')
             location_name = location_div[0].text
+            print(location_name)
             # Longitude and latitude
             location_id = location_url.strip('https://www.instagram.com/explore/locations/').split('/')[0]
-            url = 'https://www.instagram.com/explore/locations/' + location_id + '/?__a=1'
+            print("location id", location_id)
+            url = 'https://www.instagram.com/explore/locations/' + str(location_id) + '/?__a=1'
+            print(len(location_id))
             response = requests.get(url)
             data = response.json()
+            if response:
+                print("got data")
             lat = data['graphql']['location']['lat']
+            print("latitude", lat)
             lng = data['graphql']['location']['lng']
+            print("longitude", lng)
         InstaLogger.logger().info("location_id: " + str(location_id))
         InstaLogger.logger().info("location_url: " + str(location_url))
         InstaLogger.logger().info("location_name: " + str(location_name))
@@ -91,7 +98,7 @@ def extract_post_info(browser, postlink):
         # if len(post.find_elements_by_xpath('//article/div/section')) > 2:
         # image or video post?
         if len(img_tags) >= 1:
-            likes = post.find_element_by_xpath('//article/div[2]/section[2]/div/div/a/span').text
+            likes = post.find_element_by_xpath('//article/div[2]/section[2]/div/div[2]/button/span').text
         else:
             try:
                 views = int(
@@ -108,6 +115,7 @@ def extract_post_info(browser, postlink):
         likes = likes.replace('k', '00')
         InstaLogger.logger().info("post likes: " + likes)
     except Exception as err:
+        print(err)
         InstaLogger.logger().error("ERROR - Getting Post Likes")
         InstaLogger.logger().error(err)
     # if likes is not known, it would cause errors to convert empty string to int
